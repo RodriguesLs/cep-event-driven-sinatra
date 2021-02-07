@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  redis:
+
+  postgres:
+
+  backend:
+    image: ruby:3.0.0
+    volumes:
+      - ./:/home/user/
+    ports:
+      - '4567:4567'
+    tty: true

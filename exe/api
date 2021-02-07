@@ -1,3 +1,15 @@
 #!/usr/bin/env ruby
 
-puts "api"
+require "sinatra"
+require "sinatra/json"
+
+set :bind, "0.0.0.0"
+
+get '/' do
+  json({
+    hello: "world!",
+  })
+end
+
+
+# https://ws.apicep.com/cep/[digits].json
