@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/cep/event/driven/version'
+require_relative 'lib/cep/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cep-event-driven"
-  spec.version       = Cep::Event::Driven::VERSION
+  spec.name          = "cep"
+  spec.version       = Cep::VERSION
   spec.authors       = ['Felipe Rodrigues da Costa']
   spec.email         = ['fr.costa95@gmail.com']
 

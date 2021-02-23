@@ -1,15 +1,31 @@
 #!/usr/bin/env ruby
 
-require "sinatra"
-require "sinatra/json"
+require 'sinatra'
+require 'sinatra/json'
+require 'cep'
 
-set :bind, "0.0.0.0"
+set :bind, '0.0.0.0'
 
-get '/' do
-  json({
-    hello: "world!",
-  })
+post '/enqueue' do
+  ceps = request.json['ceps'] || []
+
+  sanitized_ceps = Cep::SanitizeService.sanitize_set(ceps)
+  batches = Cep::BatchService.split(sanitized_ceps)
+
+  status(200)
+  json(body: batches)
 end
 
-
 # https://ws.apicep.com/cep/[digits].json
+#
+# get '/' do
+#   stream do |out|
+#     10.times do
+#       out << "It's gonna be legen -\n"
+#       sleep 0.5
+#       out << " (wait for it) \n"
+#       sleep 1
+#       out << "- dary!\n"
+#     end
+#   end
+# end
