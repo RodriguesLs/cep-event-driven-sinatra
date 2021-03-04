@@ -9,3 +9,4 @@ end
 
 require_relative 'cep/services/batch_service'
 require_relative 'cep/services/sanitize_service'
+require_relative 'cep/pub_sub'

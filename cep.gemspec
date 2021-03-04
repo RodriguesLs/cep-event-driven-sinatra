@@ -23,4 +23,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  spec.add_dependency('puma', '5.2.2')
+  spec.add_dependency('redis', '3.3.1')
+  spec.add_dependency('sinatra', '2.1.0')
+  spec.add_dependency('sinatra-contrib', '2.1.0')
 end

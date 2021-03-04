@@ -12,6 +12,10 @@ post '/enqueue' do
   sanitized_ceps = Cep::SanitizeService.sanitize_set(ceps)
   batches = Cep::BatchService.split(sanitized_ceps)
 
+  batches.each do |batch|
+    Cep::PubSub.instance.pub('worker', batch)
+  end
+
   status(200)
   json(body: batches)
 end
