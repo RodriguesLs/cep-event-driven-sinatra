@@ -13,16 +13,31 @@ module Cep
     end
 
     def pub(topic, data)
-      connection.publish(topic, data.to_json)
+      connection.rpush(topic, data.to_json)
     end
 
     def sub(topic)
-      connection.subscribe(topic) do |event|
-        event.message do |_, msg|
-          data = JSON.parse(msg)
-          yield(data)
-        end
+      loop do
+        msg = connection.lpop(topic)
+
+        raise 'Message can\'t be blank' if msg.nil?
+
+        data = JSON.parse(msg)
+
+        handle(topic, data) { |handle_data| yield(handle_data) }
+      rescue => e
+        pp e
+        sleep 10
       end
+    end
+
+    private
+
+    def handle(topic, data)
+      yield(data)
+    rescue => e
+      pp e
+      pub(topic, data)
     end
   end
 end

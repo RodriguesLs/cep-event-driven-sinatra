@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
 
-puts "worker"
+require 'cep'
 
+Cep::PubSub.instance.sub('worker') do |data|
+  pp data
+end
